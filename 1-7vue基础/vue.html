@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue基础</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <script src="vue.js"></script>
+    <style>
+        .red {
+            background: black;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+        <img v-bind:src="src" alt="" />
+        <p v-show="true">显示</p>
+    </div>
+
+    <div id="list">
+        <li v-for="item of list">
+            姓名:{{item.name}} 
+        </li>
+    </div>
+
+    <img id="img" v-bind:src="src" alt="" />
+
+    <div id="addText">
+        {{text}}
+        <button v-on:click="addText">点击</button>
+    </div>
+
+    <div id="style">
+            修改字体<input type="checkbox" v-on:click="addClass" v-model="choose">
+            <button v-on:click="addClass">修改字体</button>
+            <p v-bind:class="{red:choose}">你好</p>
+    </div>
+    <script>
+        //MVVM 数据驱动模式;声明式渲染
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                src: 'timg.jpg',
+                
+              }
+        })
+
+        //v- 指令
+        //v-bind 绑定属性指令
+
+        var app1 = new Vue({
+            el: '#img',
+            data: {
+                src: 'timg.jpg'
+              }
+        })
+
+        var app2 = new Vue({
+            el: '#list',
+            data: {
+                list:[
+                    {name:"hello",age:11},
+                    {name:"hello2",age:12},
+                    {name:"hello3",age:13},
+                ]
+            }
+        })
+        //v-on,@ 绑定事件
+        var app3 = new Vue({
+            el: '#addText',
+            data: {
+                text:"点击添加文本。"
+            },
+            methods: {
+                addText(){
+                    if(this.text.includes("新增")){
+                        alert("已经添加过");
+                    }else{
+                        this.text = this.text + "这是新增的文本";
+                    }
+                }
+            },
+        })
+
+        //v-model
+        var app4 = new Vue({
+            el: '#addText',
+            data: {
+                text:"点击添加文本。"
+            },
+            methods: {
+                addText(){
+                    if(this.text.includes("新增")){
+                        alert("已经添加过");
+                    }else{
+                        this.text = this.text + "这是新增的文本";
+                    }
+                }
+            },
+        })
+
+        //点击修改
+        var app5 = new Vue({
+            el: '#style',
+            data: {
+                red:"",
+                choose:false
+            },
+            methods: {
+                addClass(){
+                    if(this.red == ""){
+                        this.red = "red";
+                    }else{
+                        this.red = ""
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <p class="text" ref='x1'>{{message}}</p>
+    </div>
+
+    <script>
+        const app = new Vue({
+            data:{
+                message:"初始数据",
+            },
+            //创建实例，并未完成。钩子函数
+            beforeCreate() {
+                console.log(this.message);
+            },
+            //创建实例完成
+            created() {
+                this.message+="+这是实例化创建完成后添加的数据"
+                console.log(this.message)
+            },
+            //挂载，无法操作DOM
+            beforeMount() {
+                console.log(this.$refs.x1)
+            },
+            //挂载完成，操作DOM阶段
+            mounted() {
+                this.message += "123";
+                this.$refs.x1.style.color = 'red';
+                console.log(this.$refs.x1)
+            },
+            //更新之前
+            beforeUpdate() {
+                console.log(123)
+            },
+            //数据更新之后
+            updated() {
+                console.log(123)
+            },
+            //销毁
+            beforeDestroy() {
+                
+            },
+            destroyed() {
+                
+            },
+        }).$mount('#app')
+
+    </script>
+</body>
+</html>

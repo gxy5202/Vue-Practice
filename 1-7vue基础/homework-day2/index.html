@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../vue.js"></script>
+    <style>
+        .wrapper {
+            width: 600px;
+            height: 800px;
+            margin: auto;
+        }
+        
+        .shop ul li {
+            list-style-type: none;
+        }
+        .shop li img{
+            width: 200px;
+            height: 150px;
+        }
+        .order {
+            width: 100%;
+            text-align: center;
+        }
+        .order button {
+            width: 45%;
+            background: none;
+            border:1px solid rgb(0,136,255)
+        }
+        .to-add button{
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper" >
+        <div class="order">
+            <button @click="high" v-show="show">升序</button>
+            <button @click="low" v-show="show">降序</button>
+        </div>
+        <div class="add" v-show="show_anti">
+            <input type="text" placeholder="餐馆" v-model="newList.name"/>
+            <input type="text" placeholder="销量" v-model="newList.num"/>
+            <button @click="add_res">添加</button>
+        </div>
+        <div class="shop" v-show="show">
+            <ul>
+                <li-shop :prop="item" v-for="item of shop" :key="item.id"></li-shop>
+            </ul>
+        </div>
+        <div class="to-add">
+            <button @click="toAdd" v-show="show">添加商家</button>
+        </div>
+    </div>
+
+    <script>
+        //注册全局组件
+        Vue.component("li-shop",{
+            props:['prop'],
+            template:`
+                <li>
+                    <img :src='prop.img' />
+                    <p>{{prop.name}}</p>
+                    <p>销量：{{prop.num}}</p>
+                </li>
+            `
+        })
+        //实例化一个vue对象
+        const app = new Vue({
+            el:".wrapper",
+            data:{
+                shop:"",
+                show:true,
+                show_anti:false,
+                newList:{
+                    img:"",
+                    name:"",
+                    num:""
+                },
+                
+            },
+            methods:{
+                high(){
+                    this.shop.sort((a,b) => {return a.num-b.num;})
+                },
+                low(){
+                    this.shop.sort((a,b) => {return b.num-a.num;})
+                },
+                toAdd(){
+                    this.show = false;
+                    this.show_anti = true;
+                },
+                add_res(){
+                    this.shop.push(this.newList)
+                    this.show = true;
+                    this.show_anti = false;
+                }
+            },
+            created(){
+                axios.get("data.json")
+                .then((res)=>{
+                    this.shop = res.data.shop;
+                    console.log(res.data.shop)
+                })
+                .catch((res)=>{
+
+                })
+            }
+        })
+    </script>
+</body>
+</html>

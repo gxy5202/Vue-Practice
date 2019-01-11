@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 局部组件 -->
+    <div id="app">
+        <input type="text" placeholder="请输入" v-model="value" />
+        
+    </div>
+    <input-value :prop="value"></input-value>
+
+    <!-- 全局组件 -->
+    <div id="app2">
+        <ul>
+            <li-value :prop='item' v-for="item of message" :key="item.id"></li-value>
+        </ul>
+        <ul>
+            <li-value :prop='item' v-for="item of message2" :key="item.id"></li-value>
+        </ul>
+
+        <div style="display:flex">
+            <ul>
+                <li-value :prop='item' v-for="item of moto1" :key="item.id"></li-value>
+            </ul>
+            <ul>
+                <li-value :prop='item' v-for="item of moto2" :key="item.id"></li-value>
+            </ul>
+            <ul>
+                <li-value :prop='item' v-for="item of moto3" :key="item.id"></li-value>
+            </ul>
+        </div>
+    </div>
+    <script>
+        
+        const app = new Vue({
+            el:'#app',
+            data:{
+                value:"",
+            },
+            //局部组件
+            components:{
+                //组件名称
+                inputValue:{
+                    props:['prop'],
+                    template:`
+                       <span>您输入的值为：{{prop}}</span>
+                    `
+                }
+            }
+        })
+        
+        //全局组件
+        Vue.component('liValue',{
+            props:['prop'],
+            template:`
+                <li><a href="">{{prop}}</a></li>
+            `
+        })
+        const app2 = new Vue({
+            el:"#app2",
+            data:{
+                message:['兰博基尼','劳斯莱斯','宾利','法拉利'],
+                message2:['今天','明天','前天','后天'],
+                moto1:['钱江摩托','嘉陵摩托','力帆摩托'],
+                moto2:['本田摩托','宝马摩托','雅马哈摩托'],
+                moto3:['川崎摩托','杜卡迪摩托','哈雷摩托'],
+            }
+        })
+    </script>
+</body>
+</html>

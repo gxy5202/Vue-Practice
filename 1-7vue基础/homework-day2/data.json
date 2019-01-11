@@ -1,0 +1,24 @@
+{
+    "shop":[
+        {
+            "img":"http://pic40.photophoto.cn/20160721/0042040254370530_b.jpg",
+            "name":"黄焖鸡米饭",
+            "num":333
+        },
+        {
+            "img":"http://pic12.photophoto.cn/20090717/0042040235022575_b.jpg",
+            "name":"猪排饭",
+            "num":234
+        },
+        {
+            "img":"http://pic7.photophoto.cn/20080602/0042040296520124_b.jpg",
+            "name":"悠悠炒饭",
+            "num":454
+        },
+        {
+            "img":"http://img18.3lian.com/d/file/201710/13/338b9c076dda5bc17e9239af07c79b62.jpg",
+            "name":"花甲米线",
+            "num":122
+        }
+    ]
+}

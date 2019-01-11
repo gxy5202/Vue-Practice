@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+    <style>
+        .line{
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .line_border {
+            background: rgb(0,136,255);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <span v-for="item,index of type">
+            <input type="checkbox" :id="item.id" :checked="item.check" v-model="item.check"/>
+            <label :for="item.id" >{{item.name}}</label>
+        </span>
+        <ul>
+            <li v-for="item,index of type" v-if="item.check==true" @click="targ(index)">
+                {{item.name}}
+            </li>
+        </ul>
+
+        <span v-for="item,index of pic">
+            <input type="radio" :id="item.id"  v-model="select" :value="item.id" />
+            <label :for="item.id" >{{item.type}}</label>
+        </span>
+        <span v-for="item,index of pic" v-if="item.id==select">
+            <img :src="pi" alt="" v-for="pi,index of item.picList">
+        </span>
+
+
+        <ul class="option">
+            <li :class="{line_border:item.line_border,line:true}" v-for="item,index of option" @click="hover(index)">{{item.name}}</li>
+        </ul>
+
+        <nav-li :prop="option"></nav-li>
+    </div>
+    
+
+
+    <script>
+        let data = {
+            type:[
+                {
+                    id:"swim",
+                    name:"游泳",
+                    check:false
+                },
+                {
+                    id:"bask",
+                    name:"篮球",
+                    check:false
+                },
+                {
+                    id:"foot",
+                    name:"足球",
+                    check:false
+                },
+                {
+                    id:"book",
+                    name:"看书",
+                    check:false
+                },
+            ],
+            select:"pet",
+            pic:[
+                {
+                    id:"pet",
+                    type:"宠物",
+                    check:false,
+                    picList:[
+                        "http://aulence.com/project/vue/base/img/album/pet-01.jpg",
+                        "http://aulence.com/project/vue/base/img/album/pet-02.jpg",
+                        "http://aulence.com/project/vue/base/img/album/pet-03.jpg",
+                    ]
+                },
+                {
+                    id:"scenery",
+                    type:"风景",
+                    check:false,
+                    picList:[
+                        "http://aulence.com/project/vue/base/img/album/scenery-01.jpg",
+                        "http://aulence.com/project/vue/base/img/album/scenery-02.jpg",
+                        "http://aulence.com/project/vue/base/img/album/scenery-03.jpg",
+                    ]
+                },
+                {
+                    id:"car",
+                    type:"汽车",
+                    check:false,
+                    picList:[
+                        "http://aulence.com/project/vue/base/img/album/car-01.jpg",
+                        "http://aulence.com/project/vue/base/img/album/car-02.jpg",
+                        "http://aulence.com/project/vue/base/img/album/car-03.jpg",
+                    ]
+                },
+                {
+                    id:"girl",
+                    type:"美女",
+                    check:false,
+                    picList:[
+                        "http://aulence.com/project/vue/base/img/album/girl-01.jpg",
+                        "http://aulence.com/project/vue/base/img/album/girl-02.jpg",
+                        "http://aulence.com/project/vue/base/img/album/girl-03.jpg",
+                    ]
+                },
+            ],
+            option:[
+                {
+                    name:"编程",
+                    line_border:false
+                },
+                {
+                    name:"游戏",
+                    line_border:false
+                },
+                {
+                    name:"看书",
+                    line_border:false
+                },
+                {
+                    name:"美食",
+                    line_border:false
+                },
+                {
+                    name:"运动",
+                    line_border:false
+                },
+                {
+                    name:"电影",
+                    line_border:false
+                },
+            ],
+            allClass:{
+                line:true,
+            }
+            
+            
+        }
+
+        //组件
+        Vue.component("nav-li",{
+            props:['prop'],
+            template:`
+                <ul>
+                    <li :class="{line_border:item.line_border,line:true}" v-for="item,index of prop" @click="hover(index)">{{item.name}}</li>
+                </ul>
+            `,
+            data(){
+                return data
+            },
+            methods:{
+                hover(index){
+                    this.prop[index].line_border = !this.prop[index].line_border
+                }
+            }
+        })
+
+        const app = new Vue({
+            el:"#app",
+            data:data,
+            methods: {
+                targ(index){
+                    alert(this.type[index].name)
+                },
+                con(item){
+                    if(item.check == false){
+                        item.check = true
+                    }else{
+                        item.check = false
+                    }
+                },
+                /*
+                hover(index){
+                    this.option[index].line_border = !this.option[index].line_border
+                    
+                }
+                */
+            },
+        })
+    </script>
+</body>
+</html>

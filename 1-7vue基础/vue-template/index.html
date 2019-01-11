@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{ message | upper}}</p>
+        <p>{{ date | dateTrans}}</p>
+        <p>{{ num | dollar}}</p>
+        <p @click="Nowdate()">{{nowDate}}</p>
+        <input type="text" v-model="firstname">
+        <span>firstname:{{ firstname }} lastname:{{ lastname }}</span>
+        <span>fullname:{{ fullname }}</span>
+    </div>
+
+    <script>
+        window.onload = function(){
+            const app = new Vue({
+                el:'#app',
+                data:{
+                    message:"this is my house!",
+                    date:new Date().getTime(),
+                    num:39400,
+                    nowDate:new Date().getTime(),
+                    firstname:"foo",
+                    lastname:"nig",
+                    //fullname:"foo night"
+                },
+                computed: {
+                    dateNow(){ 
+                        return new Date().getTime(); 
+                    },
+                    //getter
+                    fullname:{
+                        get:function(){
+                            return this.firstname + ' ' +this.lastname
+                        },
+                        //setter
+                        set:function(newval){
+                            var names = newval.split(' ');
+                            this.firstname = names[0];
+                            this.lastname = names[1]
+                        }
+                    }
+                    
+                    
+                },
+                methods: {
+                    Nowdate(){
+                        this.nowDate = new Date(this.dateNow).toLocaleString();
+                    }
+                },
+            })
+        }
+        var name = "Foo night";
+        var newname = name.split(' ');
+        console.log(newname)
+        //过滤大写
+        Vue.filter('upper',function(value){
+            value.toString();
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        })
+        //过滤日期
+        Vue.filter('dateTrans',function(value){
+            if(!value){
+                console.log('不合法的时间')
+            }else if(typeof value === 'number'){
+               var rec = new Date(value)
+               return rec.toLocaleString();
+            }else if(typeof value === 'object'){
+                return value.toLocaleString();
+            }
+        })
+
+        //过滤美元
+        Vue.filter('dollar',function(value){
+            if(typeof value === 'number'){
+                value = '$' + parseFloat(value.toFixed(2).toLocaleString());
+                //如果有小数
+                if(value.lastIndexOf('\.') !== -1){
+                    //获取小数位
+                    const decimalLength = value.slice(value.lastIndexOf('\.'+1).length)
+                    //如果只有1位小数
+                    if(decimalLength === 1){
+                        value += '0'
+                    }
+                    //如果没有小数
+                }else{
+                    value +='.00'
+                }
+                
+            }
+            return value
+        })
+
+        //
+        
+    </script>
+</body>
+</html>

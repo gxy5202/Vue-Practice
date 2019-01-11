@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../vue.js"></script>
+    <script src="vueFile.js" defer="defer"></script>
+    <title>vue-homework</title>
+</head>
+<body>
+    <!-- 作业1 动态添加诗句 -->
+    <div id="poem">
+        <p>作业一</p>
+        <input type="text" v-on:keyup.enter="poem.push(addPoem)" v-model="addPoem"/>
+        <div v-for="(item,index) of poem"> 
+            <span>
+                {{item}}
+            </span>
+            <button @click="poem.splice(index,1)">删除</button>
+        </div>
+        
+    </div>
+
+    <hr />
+
+    <!-- 作业2 -->
+    <div id="table">
+        <p>作业二</p>
+        <table border="1" cellspacing="0" cellpadding="0">
+            <tr>
+                <th v-for="item of title">{{item}}</th>
+            </tr>
+            <tr v-for="(item,index) of content">
+                <td>index为{{index}},星宿：{{item.star}}</td>
+                <td>index为{{index}},头衔：{{item.honor}}</td>
+                <td>index为{{index}},姓名：{{item.name}}</td>
+            </tr>
+        </table>
+    </div>    
+    <hr />
+
+    <!-- 作业3 -->
+    <div id="click_add">
+        <p>作业三</p>
+        <button v-on:click="reduce()">-</button>
+        <span>{{num}}</span>
+        <button v-on:click="add()">+</button>
+    </div>
+    <hr />
+
+    <!-- 作业4 -->
+    <div class="get_time">
+        <p>作业四</p>
+        <button v-on:click="getTime()">获取当前时间</button>
+        <span>{{time}}</span>
+    </div>
+</body>
+</html>
+

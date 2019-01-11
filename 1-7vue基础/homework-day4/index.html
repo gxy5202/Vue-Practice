@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../vue.js"></script>
+    <script src="vueFile.js" defer="defer"></script>
+    <title>vue-homework-day4</title>
+    <style>
+        #app {
+            width: 800px;
+            margin: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form-list :series="series_list" :skill="skill_list"  ></form-list>
+        <table-list :data="data_list" :title="title_list"  ></table-list>
+
+        
+    </div>
+</body>
+</html>
